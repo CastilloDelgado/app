@@ -1,21 +1,15 @@
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  FlatList,
-  Image,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList, Image, Alert } from "react-native";
 import React from "react";
 import colors from "../settings/colors";
 import { listData } from "./data";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { EvilIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import PeopleIcon from "../components/icons/PeopleIcon";
+import CommentIcon from "../components/icons/CommentIcon";
+import ShareIcon from "../components/icons/ShareIcon";
+import ProfileImageBadge from "../components/ProfileImageBadge";
+import PostEngagementInfo from "../components/PostEngagementInfo";
 
 export default function HomeScreen({ navigation }) {
   const goToProfile = () => navigation.navigate("Profile Screen");
@@ -25,12 +19,7 @@ export default function HomeScreen({ navigation }) {
   const renderItem = ({ item }) => (
     <View style={styles.smallPostContainer}>
       <Pressable onPress={goToProfile}>
-        <Image
-          style={styles.avatar}
-          source={{
-            uri: "https://reactnative.dev/img/tiny_logo.png",
-          }}
-        />
+        <ProfileImageBadge />
       </Pressable>
       <View style={styles.infoContainer}>
         <TouchableOpacity style={styles.flexRow} onPress={goToProfile}>
@@ -51,35 +40,9 @@ export default function HomeScreen({ navigation }) {
         >
           <Text style={styles.smallPostDescription}>{item.description}</Text>
         </TouchableOpacity>
-        <View style={styles.postEngagement}>
-          <TouchableOpacity style={styles.flexRow}>
-            <SimpleLineIcons
-              name="people"
-              size={22}
-              color={colors.reactionIconColor}
-              style={styles.iconStyle}
-            />
-            <Text>{item.reaction_count}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.flexRow, { marginLeft: 12 }]}>
-            <EvilIcons
-              name="comment"
-              size={26}
-              color={colors.reactionIconColor}
-              style={styles.iconStyle}
-            />
-            <Text>{item.comments_count}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.flexRow, { marginLeft: 12 }]}>
-            <Ionicons
-              name="share-outline"
-              size={22}
-              color={colors.reactionIconColor}
-              style={styles.iconStyle}
-            />
-            <Text>Share</Text>
-          </TouchableOpacity>
-        </View>
+
+        {/* ENGAGEMENT DATA */}
+        <PostEngagementInfo item={item} />
       </View>
     </View>
   );
@@ -114,13 +77,6 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.smallPostBorderColor,
   },
 
-  avatar: {
-    height: 42,
-    width: 42,
-    marginRight: 8,
-    borderRadius: 21,
-  },
-
   flexRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -151,11 +107,10 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 
-  postEngagement: {
+  flexRow: {
     flexDirection: "row",
-    marginTop: 4,
+    alignItems: "center",
   },
-
   iconStyle: {
     marginRight: 4,
   },
