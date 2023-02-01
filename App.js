@@ -58,14 +58,14 @@ const TabNavigator = () => (
 const HomeStackNavigator = () => (
   <Stack.Navigator
     screenOptions={{
-      headerShown: false,
+      headerShown: true,
       headerBackBTitleVisible: false,
     }}
   >
     <Stack.Screen
       name="Tab"
       component={TabNavigator}
-      options={{ headerShown: false }}
+      options={{ headerShown: false, title: "" }}
     />
     <Stack.Screen name="New Post" component={NewPost} options={{ title: "" }} />
     <Stack.Screen
