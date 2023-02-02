@@ -7,11 +7,12 @@ import ProfileImageBadge from "../components/ProfileImageBadge";
 import { postData } from "./data";
 import PostEngagementInfo from "../components/PostEngagementInfo";
 
-export default function PostScreen() {
+export default function PostScreen({ navigation }) {
+  const goToProfileScreen = () => navigation.navigate("Profile Screen");
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
-        <TouchableOpacity style={styles.flexRow}>
+        <TouchableOpacity style={styles.flexRow} onPress={goToProfileScreen}>
           <ProfileImageBadge />
           <View>
             <Text style={styles.postUsername}>{postData.user.username}</Text>

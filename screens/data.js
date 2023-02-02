@@ -1,3 +1,6 @@
+import profileImage from "../assets/profileImage.png";
+import backgroundImage from "../assets/landscape.jpg";
+
 export const listData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => ({
   id: item,
   title: `Item number: ${item} `,
@@ -20,4 +23,16 @@ export const postData = {
   },
   reaction_count: 110,
   comments_count: 52,
+};
+
+export const profileData = {
+  username: "Marco Castillo",
+  usertag: "@castillodelgado",
+  profileImage: profileImage,
+  backgroundImage: backgroundImage,
+  description:
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora optio maiores sint itaque fuga.",
+  created_at: "March 2020",
+  followers: "123",
+  parties: "26",
 };

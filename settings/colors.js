@@ -11,6 +11,9 @@ const colors = {
 
   addIconBackgroundColor: "#40b9ff",
   addIconColor: "white",
+  profileImageBadgeBorder: "white",
+  followButton: "black",
+  followButtonText: "white",
 };
 
 export default colors;
