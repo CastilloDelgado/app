@@ -13,7 +13,7 @@ export default function PostItem({ item, navigation }) {
   return (
     <View style={styles.smallPostContainer}>
       <Pressable onPress={goToProfile}>
-        <ProfileImageBadge image={item.user.avatar} />
+        <ProfileImageBadge image={item?.user?.avatar} />
       </Pressable>
       <View style={styles.infoContainer}>
         <TouchableOpacity
