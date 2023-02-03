@@ -7,15 +7,22 @@ export default function CustomTextInput({
   placeholder = "",
   onChangeText,
   value,
+  textContentType = "text",
+  autoCapitalize = "none",
+  secureTextEntry = false,
+  width = null,
 }) {
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer, { width }]}>
       <Text style={styles.title}>{title}</Text>
       <TextInput
         style={styles.textInput}
         placeholder={placeholder}
         onChangeText={(text) => onChangeText(text)}
         value={value}
+        textContentType={textContentType}
+        autoCapitalize={autoCapitalize}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );

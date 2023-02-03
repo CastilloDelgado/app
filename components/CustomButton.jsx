@@ -40,7 +40,7 @@ export default function CustomButton({
 
 const styles = StyleSheet.create({
   followButton: {
-    paddingVertical: 8,
+    paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 20,
   },
