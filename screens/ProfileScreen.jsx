@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import colors from "../settings/colors";
-import { listData } from "./data";
 import PostList from "../components/PostList";
 import ProfileHeader from "../components/ProfileHeader";
 import PostService from "../services/PostService";
 import UserService from "../services/UserService";
+import { useFocusEffect } from "@react-navigation/core";
 
 export default function ProfileScreen({ route, navigation }) {
   const [profileData, setProfileData] = useState({});
@@ -15,9 +15,9 @@ export default function ProfileScreen({ route, navigation }) {
   const [page, setPage] = useState(1);
   const [noPostsLeft, setNoPostsLeft] = useState(false);
 
-  const fetchPosts = () => {
+  const fetchPosts = (profileId) => {
     setLoading(true);
-    PostService.getAllPosts(page)
+    PostService.getPostsByUserId(profileId, page)
       .then((response) => {
         if (page === 1) {
           setData([...response.data.data]);
@@ -46,18 +46,25 @@ export default function ProfileScreen({ route, navigation }) {
   const fetchUserData = () => {
     setLoadingProfile(true);
     UserService.getUserById(route.params?.profileId)
-      .then((response) => setProfileData({ ...response.data }))
+      .then((response) => {
+        setProfileData({ ...response.data });
+        fetchPosts(response.data.id);
+      })
       .catch((error) => console.log(error))
       .then(() => setLoadingProfile(false));
   };
 
   useEffect(() => {
-    fetchPosts();
+    if (profileData.id) {
+      fetchPosts(profileData.id);
+    }
   }, [page]);
 
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  console.log(profileData);
 
   return (
     <PostList
@@ -68,7 +75,9 @@ export default function ProfileScreen({ route, navigation }) {
       handleEnd={handleEnd}
       noPostsLeft={noPostsLeft}
       page={page}
-      header={() => <ProfileHeader data={profileData} loading={loading} />}
+      header={() => (
+        <ProfileHeader data={profileData} loading={loadingProfile} />
+      )}
     />
   );
 }

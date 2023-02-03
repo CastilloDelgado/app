@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet, ActivityIndicator } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import React from "react";
 import PostItem from "./PostItem";
 import colors from "../settings/colors";
@@ -31,7 +31,7 @@ export default function PostList({
       onEndReachedThreshold={0}
       ListFooterComponent={() =>
         !noPostsLeft && page !== 1 ? (
-          <ActivityIndicator loading={refreshing} />
+          <CustomActivityIndicator loading={refreshing} />
         ) : null
       }
     />

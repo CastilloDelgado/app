@@ -25,10 +25,10 @@ export default function PostItem({ item, navigation }) {
           onPress={() => goToProfile(item?.user?.id)}
         >
           <Text numberOfLines={1} style={styles.smallPostName}>
-            {item.user.name}
+            {item.user?.name}
           </Text>
           <Text numberOfLines={1} style={styles.usertag}>
-            {`@${item.user.usertag}`}
+            {`@${item.user?.usertag}`}
           </Text>
           <Text>&middot; </Text>
           <Text numberOfLines={1} style={styles.timestamp}>

@@ -17,14 +17,14 @@ export default function HomeScreen({ navigation }) {
 
   const goToNewPost = (postId) =>
     navigation.navigate("New Post", {
-      postId: "Something",
+      postId: postId,
     });
 
   const fetchPosts = () => {
     setLoading(true);
     PostService.getAllPosts(page)
       .then((response) => {
-        if (page === 1) {
+        if (page == 1) {
           setData([...response.data.data]);
         } else {
           setData([...data, ...response.data.data]);
