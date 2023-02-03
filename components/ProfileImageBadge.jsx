@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import React from "react";
 import colors from "../settings/colors";
 
-export default function ProfileImageBadge({ big }) {
+export default function ProfileImageBadge({ image, big }) {
   return (
     <Image
       style={[
@@ -16,7 +16,7 @@ export default function ProfileImageBadge({ big }) {
         },
       ]}
       source={{
-        uri: "https://reactnative.dev/img/tiny_logo.png",
+        uri: image || "https://reactnative.dev/img/tiny_logo.png",
       }}
     />
   );

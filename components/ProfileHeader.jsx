@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import colors from "../settings/colors";
 import ProfileImageBadge from "../components/ProfileImageBadge";
@@ -6,6 +6,7 @@ import CalendarIcon from "../components/icons/CalendarIcon";
 import PeopleIcon from "../components/icons/PeopleIcon";
 import PartyIcon from "../components/icons/PartyIcon";
 import { profileData } from "../screens/data";
+import CustomButton from "./CustomButton";
 
 export default function ProfileHeader() {
   return (
@@ -16,9 +17,7 @@ export default function ProfileHeader() {
       />
       <View style={styles.avatarContainer}>
         <ProfileImageBadge big />
-        <TouchableOpacity style={styles.followButton}>
-          <Text style={styles.followButtonText}>Follow</Text>
-        </TouchableOpacity>
+        <CustomButton title="Follow" />
       </View>
       <View style={styles.nameContainer}>
         <Text style={styles.username}>{profileData.username}</Text>
@@ -71,18 +70,6 @@ const styles = StyleSheet.create({
   backgroundImage: {
     width: "100%",
     height: 140,
-  },
-
-  followButton: {
-    backgroundColor: colors.followButton,
-    paddingVertical: 6,
-    paddingHorizontal: 24,
-    borderRadius: 20,
-  },
-
-  followButtonText: {
-    fontWeight: "bold",
-    color: colors.followButtonText,
   },
 
   avatarContainer: {

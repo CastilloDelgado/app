@@ -10,11 +10,11 @@ export default function PostEngagementInfo({ item }) {
     <View style={styles.postEngagement}>
       <TouchableOpacity style={styles.flexRow}>
         <PeopleIcon />
-        <Text>{item.reaction_count}</Text>
+        <Text>{item.reaction_count || 0}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={[styles.flexRow, { marginLeft: 12 }]}>
         <CommentIcon />
-        <Text>{item.comments_count}</Text>
+        <Text>{item.comments_count || 0}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={[styles.flexRow, { marginLeft: 12 }]}>
         <ShareIcon />
