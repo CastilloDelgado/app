@@ -7,35 +7,45 @@ import PeopleIcon from "../components/icons/PeopleIcon";
 import PartyIcon from "../components/icons/PartyIcon";
 import { profileData } from "../screens/data";
 import CustomButton from "./CustomButton";
+import CustomActivityIndicator from "./CustomActivityIndicator";
+import { format } from "date-fns";
 
-export default function ProfileHeader() {
-  return (
+export default function ProfileHeader({ data, loading }) {
+  const date = new Date(data.created_at || null);
+  return loading ? (
+    <CustomActivityIndicator alwaysOn />
+  ) : (
     <View style={styles.container}>
       <Image
         source={profileData.backgroundImage}
         style={styles.backgroundImage}
       />
       <View style={styles.avatarContainer}>
-        <ProfileImageBadge big />
+        <ProfileImageBadge big image={data.avatar} />
         <CustomButton title="Follow" />
       </View>
       <View style={styles.nameContainer}>
-        <Text style={styles.username}>{profileData.username}</Text>
-        <Text style={styles.usertag}>{profileData.usertag}</Text>
-        <Text style={styles.description}>{profileData.description}</Text>
+        <Text style={styles.username}>{data.name}</Text>
+        <Text style={styles.usertag}>{`@${data.usertag}`}</Text>
+        <Text style={styles.description}>{data.caption}</Text>
       </View>
       <View style={styles.infoContainer}>
         <View style={styles.infoElement}>
           <CalendarIcon />
-          <Text style={styles.infoText}>Joined {profileData.created_at}</Text>
+          {date !== "NAN" && (
+            <Text style={styles.infoText}>{`Joined ${format(
+              date,
+              "MMM yyyy"
+            )}`}</Text>
+          )}
         </View>
         <View style={styles.infoElement}>
           <PeopleIcon />
-          <Text style={styles.infoText}>{profileData.followers} followers</Text>
+          <Text style={styles.infoText}>{data.followers || 0} followers</Text>
         </View>
         <View style={styles.infoElement}>
           <PartyIcon />
-          <Text style={styles.infoText}>{profileData.parties} parties</Text>
+          <Text style={styles.infoText}>{data.parties || 0} parties</Text>
         </View>
       </View>
       <View style={styles.separator}></View>

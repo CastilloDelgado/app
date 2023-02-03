@@ -14,7 +14,8 @@ export default function PostScreen({ route, navigation }) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const goToProfileScreen = () => navigation.navigate("Profile Screen");
+  const goToProfileScreen = () =>
+    navigation.navigate("Profile Screen", { profileId: data.user.id });
 
   const fetchPost = () => {
     setLoading(true);

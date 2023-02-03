@@ -7,19 +7,22 @@ import colors from "../settings/colors";
 import { formatDistanceToNowStrict } from "date-fns";
 
 export default function PostItem({ item, navigation }) {
-  const goToProfile = () => navigation.navigate("Profile Screen");
+  const goToProfile = (profileId) =>
+    navigation.navigate("Profile Screen", {
+      profileId: profileId,
+    });
   const goToPostScreen = (postId) =>
     navigation.navigate("Post Screen", { postId });
 
   return (
     <View style={styles.smallPostContainer}>
-      <Pressable onPress={goToProfile}>
+      <Pressable onPress={() => goToProfile(item?.user?.id)}>
         <ProfileImageBadge image={item?.user?.avatar} />
       </Pressable>
       <View style={styles.infoContainer}>
         <TouchableOpacity
           style={[styles.flexRow, styles.smallPostUserInfoContainer]}
-          onPress={goToProfile}
+          onPress={() => goToProfile(item?.user?.id)}
         >
           <Text numberOfLines={1} style={styles.smallPostName}>
             {item.user.name}

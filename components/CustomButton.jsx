@@ -9,9 +9,11 @@ export default function CustomButton({
   width = null,
   marginTop = 0,
   marginBottom = 0,
+  action,
 }) {
   return (
     <TouchableOpacity
+      onPress={action}
       style={[
         styles.followButton,
         {
