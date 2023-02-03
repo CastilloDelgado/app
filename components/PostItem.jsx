@@ -31,7 +31,7 @@ export default function PostItem({ item, navigation }) {
             {formatDistanceToNowStrict(new Date(item.created_at))}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.flexRow}>
+        <TouchableOpacity style={styles.flexRow} onPress={goToPostScreen}>
           <Text style={styles.smallPostTitle}>{item.title}</Text>
         </TouchableOpacity>
         <TouchableOpacity
