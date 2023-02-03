@@ -8,7 +8,8 @@ import { formatDistanceToNowStrict } from "date-fns";
 
 export default function PostItem({ item, navigation }) {
   const goToProfile = () => navigation.navigate("Profile Screen");
-  const goToPostScreen = () => navigation.navigate("Post Screen");
+  const goToPostScreen = (postId) =>
+    navigation.navigate("Post Screen", { postId });
 
   return (
     <View style={styles.smallPostContainer}>
@@ -31,13 +32,8 @@ export default function PostItem({ item, navigation }) {
             {formatDistanceToNowStrict(new Date(item.created_at))}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.flexRow} onPress={goToPostScreen}>
+        <TouchableOpacity onPress={() => goToPostScreen(item.id)}>
           <Text style={styles.smallPostTitle}>{item.title}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.smallPostContent}
-          onPress={goToPostScreen}
-        >
           <Text style={styles.smallPostDescription}>{item.description}</Text>
         </TouchableOpacity>
 

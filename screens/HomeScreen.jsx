@@ -10,12 +10,15 @@ import CustomActivityIndicator from "../components/CustomActivityIndicator";
 import { PanGestureHandler } from "react-native-gesture-handler";
 
 export default function HomeScreen({ navigation }) {
-  const goToNewPost = () => navigation.navigate("New Post");
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [noPostsLeft, setNoPostsLeft] = useState(false);
+
+  const goToNewPost = (postId) =>
+    navigation.navigate("New Post", {
+      postId: "Something",
+    });
 
   const fetchPosts = () => {
     setLoading(true);

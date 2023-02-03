@@ -14,7 +14,7 @@ const colors = {
   createPostButtonText: "white",
   inputBackgroundColor: "white",
   inputBorderColor: "black",
-  activityIndicator: "pink",
+  activityIndicator: "#3685f5",
 };
 
 export default colors;

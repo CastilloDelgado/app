@@ -1,37 +1,81 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import colors from "../settings/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DotsIcons from "../components/icons/DotsIcons";
 import ProfileImageBadge from "../components/ProfileImageBadge";
 import { postData } from "./data";
 import PostEngagementInfo from "../components/PostEngagementInfo";
+import CustomActivityIndicator from "../components/CustomActivityIndicator";
+import PostService from "../services/PostService";
+import { format } from "date-fns";
 
-export default function PostScreen({ navigation }) {
+export default function PostScreen({ route, navigation }) {
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const goToProfileScreen = () => navigation.navigate("Profile Screen");
-  return (
-    <View style={styles.container}>
-      <View style={styles.profileContainer}>
-        <TouchableOpacity style={styles.flexRow} onPress={goToProfileScreen}>
-          <ProfileImageBadge />
-          <View>
-            <Text style={styles.postUsername}>{postData.user.username}</Text>
-            <Text style={styles.postUsertag}>{postData.user.usertag}</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <DotsIcons />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.postContentContainer}>
-        <Text style={styles.postDescription}>{postData.description}</Text>
-      </View>
 
-      {/* ENGAGEMENT DATA */}
-      <View style={styles.postEngagementContainer}>
-        <PostEngagementInfo item={postData} />
-      </View>
-    </View>
+  const fetchPost = () => {
+    setLoading(true);
+    PostService.getPostById(route.params.postId)
+      .then((response) => {
+        setData(response.data);
+      })
+      .then(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
+  const createdAtDate = new Date(data?.created_at || null);
+
+  return (
+    <>
+      {loading ? (
+        <CustomActivityIndicator alwaysOn />
+      ) : (
+        <View style={styles.container}>
+          <View style={styles.profileContainer}>
+            <TouchableOpacity
+              style={styles.flexRow}
+              onPress={goToProfileScreen}
+            >
+              <ProfileImageBadge image={data?.user?.avatar} />
+              <View>
+                <Text style={styles.postUsername}>{data?.user?.name}</Text>
+                <Text
+                  style={styles.postUsertag}
+                >{`@${data?.user?.usertag}`}</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <DotsIcons />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.postContentContainer}>
+            <Text style={styles.postTitle}>{data?.title}</Text>
+            <Text style={styles.postDescription}>{data?.description}</Text>
+            <View style={styles.timeContainer}>
+              <Text style={styles.timeItem}>
+                {format(createdAtDate, "h:mm a")}
+              </Text>
+              <Text style={styles.timeItem}>
+                {format(createdAtDate, "d MMM yyyy")}
+              </Text>
+            </View>
+          </View>
+
+          {/* ENGAGEMENT DATA */}
+          <View style={styles.postEngagementContainer}>
+            <PostEngagementInfo item={postData} />
+          </View>
+        </View>
+      )}
+    </>
   );
 }
 
@@ -39,6 +83,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.appBackgroundColor,
+  },
+
+  timeContainer: {
+    flexDirection: "row",
+    marginTop: 10,
+  },
+
+  timeItem: {
+    color: colors.secondaryTextColor,
+    marginRight: 10,
   },
 
   profileContainer: {
@@ -66,9 +120,15 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.separatorColor,
   },
 
+  postTitle: {
+    textAlign: "justify",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 6,
+  },
   postDescription: {
     textAlign: "justify",
-    fontSize: 18,
+    fontSize: 16,
   },
 
   postEngagementContainer: {
