@@ -14,10 +14,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { AuthContext } from "./context/AuthProvider";
 import CustomActivityIndicator from "./components/CustomActivityIndicator";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import LoginScreen from "./screens/Auth/LoginScreen";
 import RegisterScreen from "./screens/Auth/RegisterScreen";
 import ChangePasswordScreen from "./screens/Auth/ChangePasswordScreen";
+import * as SecureStore from "expo-secure-store";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -99,7 +100,19 @@ const HomeStackNavigator = () => (
 
 export default function Root() {
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    setLoading(true);
+    SecureStore.getItemAsync("user")
+      .then((userString) => {
+        if (userString) {
+          setUser("Marco Castillo");
+        }
+      })
+      .catch((error) => console.log(error))
+      .then(() => setLoading(false));
+  }, []);
 
   if (loading) {
     return (

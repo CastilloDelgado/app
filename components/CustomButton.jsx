@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   followButton: {
     paddingVertical: 12,
     paddingHorizontal: 24,
-    borderRadius: 20,
+    borderRadius: 6,
   },
 
   followButtonText: {

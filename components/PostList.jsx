@@ -26,7 +26,10 @@ export default function PostList({
       )}
       ListHeaderComponent={header ? header : null}
       refreshing={refreshing}
-      onRefresh={handleRefresh}
+      onRefresh={() => {
+        console.log("Refreshing");
+        handleRefresh();
+      }}
       onEndReached={handleEnd}
       onEndReachedThreshold={0}
       ListFooterComponent={() =>

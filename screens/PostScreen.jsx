@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Alert, Pressable } from "react-native";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import colors from "../settings/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DotsIcons from "../components/icons/DotsIcons";
@@ -9,13 +9,36 @@ import PostEngagementInfo from "../components/PostEngagementInfo";
 import CustomActivityIndicator from "../components/CustomActivityIndicator";
 import PostService from "../services/PostService";
 import { format } from "date-fns";
+import { Modalize } from "react-native-modalize";
+import TrashcanIcon from "../components/icons/TrashcanIcon";
+import { AuthContext } from "../context/AuthProvider";
 
 export default function PostScreen({ route, navigation }) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(AuthContext);
+
+  const modalRef = useRef(null);
 
   const goToProfileScreen = () =>
     navigation.navigate("Profile Screen", { profileId: data.user.id });
+
+  const openModal = () => {
+    modalRef.current?.open();
+  };
+  const closeModal = () => {
+    modalRef.current?.close();
+  };
+
+  const handleDeletePost = () => {
+    closeModal();
+    PostService.deletePost(data.id)
+      .then((response) => {
+        navigation.navigate("Home");
+      })
+      .catch((error) => console.log(error.response.data.message))
+      .then(() => {});
+  };
 
   const fetchPost = () => {
     setLoading(true);
@@ -26,6 +49,21 @@ export default function PostScreen({ route, navigation }) {
       .then(() => {
         setLoading(false);
       });
+  };
+
+  const showDeleteAlert = () => {
+    Alert.alert("Delete this post?", "This post will be deleted forever!!!", [
+      {
+        text: "Cancel",
+        onPress: closeModal,
+        style: "cancel",
+      },
+      {
+        text: "I'm sure",
+        onPress: handleDeletePost,
+        style: "default",
+      },
+    ]);
   };
 
   useEffect(() => {
@@ -39,48 +77,72 @@ export default function PostScreen({ route, navigation }) {
       {loading ? (
         <CustomActivityIndicator alwaysOn />
       ) : (
-        <View style={styles.container}>
-          <View style={styles.profileContainer}>
-            <TouchableOpacity
-              style={styles.flexRow}
-              onPress={goToProfileScreen}
-            >
-              <ProfileImageBadge image={data?.user?.avatar} />
-              <View>
-                <Text style={styles.postUsername}>{data?.user?.name}</Text>
-                <Text
-                  style={styles.postUsertag}
-                >{`@${data?.user?.usertag}`}</Text>
+        <>
+          <View style={styles.container}>
+            <View style={styles.profileContainer}>
+              <TouchableOpacity
+                style={styles.flexRow}
+                onPress={goToProfileScreen}
+              >
+                <ProfileImageBadge image={data?.user?.avatar} />
+                <View>
+                  <Text style={styles.postUsername}>{data?.user?.name}</Text>
+                  <Text
+                    style={styles.postUsertag}
+                  >{`@${data?.user?.usertag}`}</Text>
+                </View>
+              </TouchableOpacity>
+              {user.id === data.user?.id ? (
+                <TouchableOpacity onPress={openModal}>
+                  <DotsIcons />
+                </TouchableOpacity>
+              ) : null}
+            </View>
+            <View style={styles.postContentContainer}>
+              <Text style={styles.postTitle}>{data?.title}</Text>
+              <Text style={styles.postDescription}>{data?.description}</Text>
+              <View style={styles.timeContainer}>
+                <Text style={styles.timeItem}>
+                  {format(createdAtDate, "h:mm a")}
+                </Text>
+                <Text style={styles.timeItem}>
+                  {format(createdAtDate, "d MMM yyyy")}
+                </Text>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <DotsIcons />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.postContentContainer}>
-            <Text style={styles.postTitle}>{data?.title}</Text>
-            <Text style={styles.postDescription}>{data?.description}</Text>
-            <View style={styles.timeContainer}>
-              <Text style={styles.timeItem}>
-                {format(createdAtDate, "h:mm a")}
-              </Text>
-              <Text style={styles.timeItem}>
-                {format(createdAtDate, "d MMM yyyy")}
-              </Text>
+            </View>
+
+            {/* ENGAGEMENT DATA */}
+            <View style={styles.postEngagementContainer}>
+              <PostEngagementInfo item={postData} />
             </View>
           </View>
-
-          {/* ENGAGEMENT DATA */}
-          <View style={styles.postEngagementContainer}>
-            <PostEngagementInfo item={postData} />
-          </View>
-        </View>
+          <Modalize ref={modalRef} snapPoint={200}>
+            <View style={styles.modal}>
+              <Pressable style={styles.modalItem} onPress={showDeleteAlert}>
+                <TrashcanIcon />
+                <Text style={styles.modaltemText}>Delete post</Text>
+              </Pressable>
+            </View>
+          </Modalize>
+        </>
       )}
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  modaltemText: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  modalItem: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  modal: {
+    paddingHorizontal: 23,
+    paddingVertical: 32,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.appBackgroundColor,

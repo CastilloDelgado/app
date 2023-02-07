@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React, { useContext, useState } from "react";
 import CustomTextInput from "../../components/CustomTextInput";
 import CustomButton from "../../components/CustomButton";
 import { AuthContext } from "../../context/AuthProvider";
+import CustomTextButton from "../../components/CustomTextButton";
 
 export default function LoginScreen({ navigation }) {
   const { login } = useContext(AuthContext);
@@ -42,7 +43,7 @@ export default function LoginScreen({ navigation }) {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <CustomButton title="Registrate" action={goToRegister} />
+          <CustomTextButton title="Registrate aquí" action={goToRegister} />
         </View>
       </View>
     </View>
@@ -57,5 +58,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 16,
+    justifyContent: "center",
+    alignContent: "center",
   },
 });

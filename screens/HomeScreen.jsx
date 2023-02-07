@@ -1,13 +1,10 @@
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import colors from "../settings/colors";
-import { listData } from "./data";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { AntDesign } from "@expo/vector-icons";
 import PostList from "../components/PostList";
 import PostService from "../services/PostService";
-import CustomActivityIndicator from "../components/CustomActivityIndicator";
-import { PanGestureHandler } from "react-native-gesture-handler";
 
 export default function HomeScreen({ navigation }) {
   const [data, setData] = useState([]);
@@ -22,7 +19,7 @@ export default function HomeScreen({ navigation }) {
 
   const fetchPosts = () => {
     setLoading(true);
-    PostService.getAllPosts(page)
+    PostService.getPosts(page)
       .then((response) => {
         if (page == 1) {
           setData([...response.data.data]);
@@ -34,12 +31,17 @@ export default function HomeScreen({ navigation }) {
           setNoPostsLeft(true);
         }
       })
+      .catch((error) => console.log(error.response.data.message))
       .then(() => setLoading(false));
   };
 
   const handleRefresh = () => {
-    setPage(1);
-    setNoPostsLeft(false);
+    if (page === 1) {
+      fetchPosts();
+    } else {
+      setPage(1);
+      setNoPostsLeft(false);
+    }
   };
 
   const handleEnd = () => {

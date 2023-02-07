@@ -5,7 +5,7 @@ import PostList from "../components/PostList";
 import ProfileHeader from "../components/ProfileHeader";
 import PostService from "../services/PostService";
 import UserService from "../services/UserService";
-import { useFocusEffect } from "@react-navigation/core";
+import { FollowService } from "../services/FollowService";
 
 export default function ProfileScreen({ route, navigation }) {
   const [profileData, setProfileData] = useState({});
@@ -14,6 +14,7 @@ export default function ProfileScreen({ route, navigation }) {
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [page, setPage] = useState(1);
   const [noPostsLeft, setNoPostsLeft] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const fetchPosts = (profileId) => {
     setLoading(true);
@@ -51,7 +52,16 @@ export default function ProfileScreen({ route, navigation }) {
         fetchPosts(response.data.id);
       })
       .catch((error) => console.log(error))
-      .then(() => setLoadingProfile(false));
+      .then(() => {
+        setLoadingProfile(false);
+      });
+  };
+
+  const fetchIsFollowing = () => {
+    FollowService.isFollowing(route.params?.profileId)
+      .then((response) => setIsFollowing(response.data))
+      .catch((error) => console.log(error.response.data.message))
+      .then(() => {});
   };
 
   useEffect(() => {
@@ -62,9 +72,8 @@ export default function ProfileScreen({ route, navigation }) {
 
   useEffect(() => {
     fetchUserData();
+    fetchIsFollowing();
   }, []);
-
-  console.log(profileData);
 
   return (
     <PostList
@@ -76,7 +85,12 @@ export default function ProfileScreen({ route, navigation }) {
       noPostsLeft={noPostsLeft}
       page={page}
       header={() => (
-        <ProfileHeader data={profileData} loading={loadingProfile} />
+        <ProfileHeader
+          data={profileData}
+          loading={loadingProfile}
+          isFollowing={isFollowing}
+          setIsFollowing={setIsFollowing}
+        />
       )}
     />
   );

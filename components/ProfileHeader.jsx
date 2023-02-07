@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import colors from "../settings/colors";
 import ProfileImageBadge from "../components/ProfileImageBadge";
 import CalendarIcon from "../components/icons/CalendarIcon";
@@ -9,8 +9,17 @@ import { profileData } from "../screens/data";
 import CustomButton from "./CustomButton";
 import CustomActivityIndicator from "./CustomActivityIndicator";
 import { format } from "date-fns";
+import { FollowService } from "../services/FollowService";
+import { AuthContext } from "../context/AuthProvider";
 
-export default function ProfileHeader({ data, loading }) {
+export default function ProfileHeader({
+  data,
+  loading,
+  isFollowing,
+  setIsFollowing,
+}) {
+  const { user } = useContext(AuthContext);
+
   const date = new Date(data.created_at || null);
   return loading ? (
     <CustomActivityIndicator alwaysOn />
@@ -22,7 +31,23 @@ export default function ProfileHeader({ data, loading }) {
       />
       <View style={styles.avatarContainer}>
         <ProfileImageBadge big image={data.avatar} />
-        <CustomButton title="Follow" />
+        {user.id === data.id ? null : (
+          <CustomButton
+            title={isFollowing ? "Unfollow" : "Follow"}
+            action={
+              isFollowing
+                ? () => {
+                    FollowService.unfollow(data.id)
+                      .then(() => setIsFollowing(false))
+                      .catch((error) => console.log(error));
+                  }
+                : () =>
+                    FollowService.follow(data.id)
+                      .then(() => setIsFollowing(true))
+                      .catch((error) => console.log(error))
+            }
+          />
+        )}
       </View>
       <View style={styles.nameContainer}>
         <Text style={styles.username}>{data.name}</Text>

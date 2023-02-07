@@ -19,7 +19,7 @@ export default function PostForm({ form, setForm }) {
     setLoading(true);
     PostService.createPost(form)
       .then((response) => console.log(response))
-      .catch((error) => console.log(error))
+      .catch((error) => console.log(error.response.data))
       .then(() => {
         setLoading(false);
       });
