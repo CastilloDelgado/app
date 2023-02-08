@@ -15,6 +15,7 @@ const colors = {
   inputBackgroundColor: "white",
   inputBorderColor: "black",
   activityIndicator: "#3685f5",
+  defaultImageColor: "#c4c4c4",
 };
 
 export default colors;

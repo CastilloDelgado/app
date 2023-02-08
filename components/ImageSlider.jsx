@@ -6,8 +6,6 @@ let { width } = Dimensions.get("window");
 export default class ImageSlider extends React.Component {
   scrollX = new Animated.Value(0);
   render() {
-    let position = Animated.divide(this.scrollX, width);
-
     return (
       <View
         style={{
@@ -27,9 +25,6 @@ export default class ImageSlider extends React.Component {
                 <Image
                   key={i}
                   style={{ width, height: width }}
-                  // source={{
-                  //   uri: image.uri,
-                  // }}
                   source={image}
                 />
               );

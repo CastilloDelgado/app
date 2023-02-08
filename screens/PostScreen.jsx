@@ -12,10 +12,8 @@ import { format } from "date-fns";
 import { Modalize } from "react-native-modalize";
 import TrashcanIcon from "../components/icons/TrashcanIcon";
 import { AuthContext } from "../context/AuthProvider";
-import prueba1 from "../assets/prueba1.jpeg";
-import prueba2 from "../assets/prueba2.jpeg";
-import prueba3 from "../assets/prueba3.jpeg";
 import ImageSlider from "../components/ImageSlider";
+import { STORAGE_SERVER_URL } from "../constants";
 
 export default function PostScreen({ route, navigation }) {
   const [data, setData] = useState({});
@@ -76,13 +74,20 @@ export default function PostScreen({ route, navigation }) {
 
   const createdAtDate = new Date(data?.created_at || null);
 
+  let images = [];
+  if (data.images) {
+    images = data?.images.map((image) => ({
+      uri: `${STORAGE_SERVER_URL}${image.url}`,
+    }));
+  }
+
   return (
     <>
       {loading ? (
         <CustomActivityIndicator alwaysOn />
       ) : (
         <>
-          <ImageSlider images={[prueba1, prueba2, prueba3]} />
+          <ImageSlider images={[...images]} />
           <View style={styles.container}>
             <View style={styles.profileContainer}>
               <TouchableOpacity

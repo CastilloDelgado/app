@@ -3,13 +3,14 @@ import React from "react";
 import colors from "../settings/colors";
 
 export default function CustomTextInput({
+  id = "",
   title = "",
   placeholder = "",
   value = "",
   textContentType = "text",
   autoCapitalize = "none",
   secureTextEntry = false,
-  width = null,
+  width = "100%",
   onChangeText = () =>
     console.log(`You need to add an action for the "${title}" button`),
 }) {
@@ -24,6 +25,7 @@ export default function CustomTextInput({
         textContentType={textContentType}
         autoCapitalize={autoCapitalize}
         secureTextEntry={secureTextEntry}
+        id={id}
       />
     </View>
   );

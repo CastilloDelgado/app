@@ -6,7 +6,7 @@ export default function CustomButton({
   title,
   color = colors.followButton,
   fontColor = colors.followButtonText,
-  width = null,
+  width = "100%",
   marginTop = 0,
   marginBottom = 0,
   action = () =>

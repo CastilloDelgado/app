@@ -5,7 +5,10 @@ const PostService = {
   getAllPosts: (page) => axios.get(`/posts_all?page=${page}`),
   getPostById: (id) => axios.get(`/posts/${id}`),
   getPostsByUserId: (id, page) => axios.get(`/users/${id}/posts?page=${page}`),
-  createPost: (post) => axios.post(`/posts`, post),
+  createPost: (post) =>
+    axios.post(`/posts`, post, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }),
   deletePost: (id) => axios.delete(`/posts/${id}`),
 };
 

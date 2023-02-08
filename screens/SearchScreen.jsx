@@ -52,8 +52,6 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
-  console.log(page);
-
   useEffect(() => {
     fetchPosts();
   }, [page]);

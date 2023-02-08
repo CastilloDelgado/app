@@ -6,9 +6,7 @@ import PostEngagementInfo from "./PostEngagementInfo";
 import colors from "../settings/colors";
 import { formatDistanceToNowStrict } from "date-fns";
 import ImageSlider from "./ImageSlider";
-import prueba1 from "../assets/prueba1.jpeg";
-import prueba2 from "../assets/prueba2.jpeg";
-import prueba3 from "../assets/prueba3.jpeg";
+import { STORAGE_SERVER_URL } from "../constants";
 
 export default function PostItem({ item, navigation }) {
   const goToProfile = (profileId) =>
@@ -18,9 +16,13 @@ export default function PostItem({ item, navigation }) {
   const goToPostScreen = (postId) =>
     navigation.navigate("Post Screen", { postId });
 
+  const images = item.images?.map((image) => ({
+    uri: `${STORAGE_SERVER_URL}/${image.url}`,
+  }));
+
   return (
     <View>
-      <ImageSlider images={[prueba1, prueba2, prueba3]} />
+      <ImageSlider images={[...images]} />
       <View style={styles.smallPostContainer}>
         <Pressable onPress={() => goToProfile(item?.user?.id)}>
           <ProfileImageBadge image={item?.user?.avatar} />

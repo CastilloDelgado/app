@@ -2,12 +2,11 @@ import {
   View,
   StyleSheet,
   Text,
-  Button,
   Image,
   Platform,
   Pressable,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import CustomButton from "../components/CustomButton";
 import { AuthContext } from "../context/AuthProvider";
 import CustomTextInput from "../components/CustomTextInput";
@@ -44,6 +43,24 @@ export default function SettingsScreen() {
       .catch((error) => console.log(error.response.data.message));
   };
 
+  const chooseImageToShow = () => {
+    if (imageUrl) {
+      return {
+        uri: imageUrl,
+      };
+    }
+
+    if (user.avatar) {
+      return {
+        uri: `${STORAGE_SERVER_URL}/${user.avatar}`,
+      };
+    }
+
+    return "";
+  };
+
+  console.log(chooseImageToShow());
+
   const handleUpdateProfileImage = async () => {
     const uri =
       Platform.OS === "android"
@@ -74,16 +91,7 @@ export default function SettingsScreen() {
         {/* Image picker */}
         <Pressable onPress={pickImage}>
           <View style={styles.imageContainer}>
-            {image && (
-              <Image
-                source={{
-                  uri: imageUrl
-                    ? imageUrl
-                    : `${STORAGE_SERVER_URL}${user.avatar}`,
-                }}
-                style={styles.image}
-              />
-            )}
+            <Image source={{ ...chooseImageToShow() }} style={styles.image} />
           </View>
         </Pressable>
         <View style={styles.buttonContainer}>
@@ -137,7 +145,6 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 100,
     alignItems: "center",
-    backgroundColor: "red",
   },
 
   textMessage: {
