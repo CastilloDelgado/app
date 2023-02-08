@@ -5,12 +5,13 @@ import colors from "../settings/colors";
 export default function CustomTextInput({
   title = "",
   placeholder = "",
-  onChangeText,
-  value,
+  value = "",
   textContentType = "text",
   autoCapitalize = "none",
   secureTextEntry = false,
   width = null,
+  onChangeText = () =>
+    console.log(`You need to add an action for the "${title}" button`),
 }) {
   return (
     <View style={[styles.inputContainer, { width }]}>
@@ -18,7 +19,7 @@ export default function CustomTextInput({
       <TextInput
         style={styles.textInput}
         placeholder={placeholder}
-        onChangeText={(text) => onChangeText(text)}
+        onChangeText={onChangeText}
         value={value}
         textContentType={textContentType}
         autoCapitalize={autoCapitalize}

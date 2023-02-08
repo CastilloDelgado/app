@@ -12,6 +12,10 @@ import { format } from "date-fns";
 import { Modalize } from "react-native-modalize";
 import TrashcanIcon from "../components/icons/TrashcanIcon";
 import { AuthContext } from "../context/AuthProvider";
+import prueba1 from "../assets/prueba1.jpeg";
+import prueba2 from "../assets/prueba2.jpeg";
+import prueba3 from "../assets/prueba3.jpeg";
+import ImageSlider from "../components/ImageSlider";
 
 export default function PostScreen({ route, navigation }) {
   const [data, setData] = useState({});
@@ -78,6 +82,7 @@ export default function PostScreen({ route, navigation }) {
         <CustomActivityIndicator alwaysOn />
       ) : (
         <>
+          <ImageSlider images={[prueba1, prueba2, prueba3]} />
           <View style={styles.container}>
             <View style={styles.profileContainer}>
               <TouchableOpacity

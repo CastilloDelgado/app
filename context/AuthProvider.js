@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
                 email: response.data.user.email,
                 avatar: response.data.user.avatar,
                 token: response.data.token,
+                caption: response.data.user.caption,
               };
 
               // Adding token to axios header

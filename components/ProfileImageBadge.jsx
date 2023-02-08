@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import React from "react";
 import colors from "../settings/colors";
+import { SERVER_URL, STORAGE_SERVER_URL } from "../constants";
 
 export default function ProfileImageBadge({ image, big }) {
   return (
@@ -16,7 +17,9 @@ export default function ProfileImageBadge({ image, big }) {
         },
       ]}
       source={{
-        uri: image || "https://reactnative.dev/img/tiny_logo.png",
+        uri:
+          `${STORAGE_SERVER_URL}/${image}` ||
+          "https://reactnative.dev/img/tiny_logo.png",
       }}
     />
   );

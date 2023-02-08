@@ -19,6 +19,7 @@ import LoginScreen from "./screens/Auth/LoginScreen";
 import RegisterScreen from "./screens/Auth/RegisterScreen";
 import ChangePasswordScreen from "./screens/Auth/ChangePasswordScreen";
 import * as SecureStore from "expo-secure-store";
+import axios from "./helpers/axiosConfig";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -107,7 +108,13 @@ export default function Root() {
     SecureStore.getItemAsync("user")
       .then((userString) => {
         if (userString) {
-          setUser("Marco Castillo");
+          const userJson = JSON.parse(userString);
+          setUser(userJson);
+
+          // Adding token to axios header
+          axios.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${userJson.token}`;
         }
       })
       .catch((error) => console.log(error))

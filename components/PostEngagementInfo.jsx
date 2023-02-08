@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
   postEngagement: {
     flexDirection: "row",
-    marginTop: 4,
+    paddingTop: 12,
     justifyContent: "space-around",
   },
 });

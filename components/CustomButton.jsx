@@ -9,7 +9,8 @@ export default function CustomButton({
   width = null,
   marginTop = 0,
   marginBottom = 0,
-  action,
+  action = () =>
+    console.log(`You need to add an action for the "${title}" button`),
 }) {
   return (
     <TouchableOpacity
