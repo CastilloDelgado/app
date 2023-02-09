@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
                 avatar: response.data.user.avatar,
                 token: response.data.token,
                 caption: response.data.user.caption,
+                backgroundImage: response.data.user.background_image,
               };
 
               // Adding token to axios header

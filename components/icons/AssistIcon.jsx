@@ -1,12 +1,12 @@
 import React from "react";
-import { Entypo } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../settings/colors";
 import iconsStyle from "./IconsStyle";
 
-export default function DotsIcons() {
+export default function AssistIcon() {
   return (
-    <Entypo
-      name="dots-three-vertical"
+    <MaterialCommunityIcons
+      name="account-check-outline"
       size={24}
       color={colors.reactionIconColor}
       style={iconsStyle.iconStyle}

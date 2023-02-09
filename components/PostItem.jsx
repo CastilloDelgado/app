@@ -13,6 +13,7 @@ export default function PostItem({ item, navigation }) {
     navigation.navigate("Profile Screen", {
       profileId: profileId,
     });
+
   const goToPostScreen = (postId) =>
     navigation.navigate("Post Screen", { postId });
 

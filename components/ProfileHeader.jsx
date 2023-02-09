@@ -5,12 +5,12 @@ import ProfileImageBadge from "../components/ProfileImageBadge";
 import CalendarIcon from "../components/icons/CalendarIcon";
 import PeopleIcon from "../components/icons/PeopleIcon";
 import PartyIcon from "../components/icons/PartyIcon";
-import { profileData } from "../screens/data";
 import CustomButton from "./CustomButton";
 import CustomActivityIndicator from "./CustomActivityIndicator";
 import { format } from "date-fns";
 import { FollowService } from "../services/FollowService";
 import { AuthContext } from "../context/AuthProvider";
+import { STORAGE_SERVER_URL } from "../constants";
 
 export default function ProfileHeader({
   data,
@@ -26,7 +26,9 @@ export default function ProfileHeader({
   ) : (
     <View style={styles.container}>
       <Image
-        source={profileData.backgroundImage}
+        source={{
+          uri: `${STORAGE_SERVER_URL}/${data.background_image}`,
+        }}
         style={styles.backgroundImage}
       />
       <View style={styles.avatarContainer}>
@@ -34,6 +36,7 @@ export default function ProfileHeader({
         {user.id === data.id ? null : (
           <CustomButton
             title={isFollowing ? "Unfollow" : "Follow"}
+            width={130}
             action={
               isFollowing
                 ? () => {

@@ -12,11 +12,11 @@ export default function CustomTextInput({
   secureTextEntry = false,
   width = "100%",
   onChangeText = () =>
-    console.log(`You need to add an action for the "${title}" button`),
+    console.log(`You need to add an action for the "${title}" text input`),
 }) {
   return (
     <View style={[styles.inputContainer, { width }]}>
-      <Text style={styles.title}>{title}</Text>
+      {title ? <Text style={styles.title}>{title}</Text> : null}
       <TextInput
         style={styles.textInput}
         placeholder={placeholder}
