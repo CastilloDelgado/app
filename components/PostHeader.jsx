@@ -4,7 +4,6 @@ import colors from "../settings/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DotsIcons from "../components/icons/DotsIcons";
 import ProfileImageBadge from "../components/ProfileImageBadge";
-import { postData } from "../screens/data";
 import PostEngagementInfo from "../components/PostEngagementInfo";
 import CustomActivityIndicator from "../components/CustomActivityIndicator";
 import { format } from "date-fns";
@@ -69,7 +68,7 @@ export default function PostHeader({ navigation, data, loading, openModal }) {
 
             {/* ENGAGEMENT DATA */}
             <View style={styles.postEngagementContainer}>
-              <PostEngagementInfo item={postData} />
+              <PostEngagementInfo item={data} />
             </View>
           </View>
         </>

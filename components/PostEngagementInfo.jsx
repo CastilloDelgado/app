@@ -3,11 +3,27 @@ import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PeopleIcon from "./icons/PeopleIcon";
 import CommentIcon from "./icons/CommentIcon";
-import ShareIcon from "./icons/ShareIcon";
 import AssistIcon from "./icons/AssistIcon";
+import ReactionService from "../services/ReactionService";
 
 export default function PostEngagementInfo({ item }) {
   const [assist, setAssist] = useState(false);
+
+  const handleReaction = () => {
+    ReactionService.addReaction(item.id)
+      .then(() => {
+        setAssist(true);
+      })
+      .catch((error) => console.log(error.response.data.message));
+  };
+
+  const handleRemoveReaction = () => {
+    ReactionService.removeReaction(item.id)
+      .then(() => {
+        setAssist(false);
+      })
+      .catch((error) => console.log(error.response.data.message));
+  };
 
   return (
     <View style={styles.postEngagement}>
@@ -21,9 +37,8 @@ export default function PostEngagementInfo({ item }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.flexRow, { marginLeft: 12 }]}
-        onPress={() => setAssist(!assist)}
+        onPress={!assist ? handleReaction : handleRemoveReaction}
       >
-        {/* <ShareIcon />*/}
         <AssistIcon />
         <Text>{`${!assist ? "¿" : "¡"}Asisitirás${!assist ? "?" : "!"}`}</Text>
       </TouchableOpacity>
