@@ -18,23 +18,13 @@ export default function CustomButton({
       style={[
         styles.followButton,
         {
-          backgroundColor: color,
           width: width,
           marginTop: marginTop,
           marginBottom: marginBottom,
         },
       ]}
     >
-      <Text
-        style={[
-          styles.followButtonText,
-          {
-            color: fontColor,
-          },
-        ]}
-      >
-        {title}
-      </Text>
+      <Text style={styles.followButtonText}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -44,10 +34,12 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 6,
+    backgroundColor: colors.buttonBackgroundColor,
   },
 
   followButtonText: {
     textAlign: "center",
     fontWeight: "bold",
+    color: colors.buttonTextColor,
   },
 });

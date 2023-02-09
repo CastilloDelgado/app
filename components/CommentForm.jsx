@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import CustomTextInput from "./CustomTextInput";
 import CustomButton from "./CustomButton";
 import CommentService from "../services/CommentService";
+import colors from "../settings/colors";
 
 export default function CommentForm({ postId }) {
   const [text, setText] = useState("");
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 60,
     justifyContent: "center",
+    backgroundColor: colors.commentFormBackground,
   },
   buttonContainer: {
     marginLeft: 10,

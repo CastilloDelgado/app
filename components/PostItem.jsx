@@ -75,12 +75,14 @@ const styles = StyleSheet.create({
   smallPostName: {
     fontWeight: "bold",
     marginRight: 6,
+    color: colors.postItemNameColor,
   },
 
   smallPostTitle: {
     fontWeight: "bold",
     marginRight: 6,
     textAlign: "justify",
+    color: colors.postItemDescriptionColor,
   },
 
   smallPostUserInfoContainer: {
@@ -88,12 +90,12 @@ const styles = StyleSheet.create({
   },
 
   usertag: {
-    color: colors.secondaryTextColor,
+    color: colors.postItemUsertagColor,
     marginRight: 6,
   },
 
   timestamp: {
-    color: colors.secondaryTextColor,
+    color: colors.postItemUsertagColor,
   },
 
   smallPostContent: {
@@ -107,5 +109,6 @@ const styles = StyleSheet.create({
   smallPostDescription: {
     textAlign: "justify",
     lineHeight: 20,
+    color: colors.postItemDescriptionColor,
   },
 });

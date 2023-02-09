@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
   infoText: {
     fontWeight: "bold",
     fontSize: 13,
+    color: colors.profileInfoColor,
   },
 
   backgroundImage: {
@@ -121,10 +122,11 @@ const styles = StyleSheet.create({
   username: {
     fontWeight: "bold",
     fontSize: 22,
+    color: colors.profileNameColor,
   },
 
   usertag: {
-    color: colors.secondaryTextColor,
+    color: colors.profileUsertagColor,
   },
 
   nameContainer: {
@@ -135,6 +137,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     textAlign: "justify",
     marginTop: 10,
+    color: colors.profileCaptionColor,
   },
 
   separator: {

@@ -10,6 +10,7 @@ import CustomButton from "../../components/CustomButton";
 import CustomTextInput from "../../components/CustomTextInput";
 import { AuthService } from "../../services/AuthService";
 import CustomTextButton from "../../components/CustomTextButton";
+import colors from "../../settings/colors";
 
 export default function RegisterScreen({ navigation }) {
   const goToLogin = () => navigation.navigate("Login Screen");
@@ -107,6 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: colors.appBackgroundColor,
   },
   buttonContainer: {
     marginTop: 16,

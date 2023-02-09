@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
+    color: colors.inputTitleColor,
   },
   textInput: {
     marginTop: 6,

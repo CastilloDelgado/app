@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import colors from "../settings/colors";
 import PostList from "../components/PostList";
@@ -76,23 +76,25 @@ export default function ProfileScreen({ route, navigation }) {
   }, []);
 
   return (
-    <PostList
-      data={data}
-      navigation={navigation}
-      refreshing={loading}
-      handleRefresh={handleRefresh}
-      handleEnd={handleEnd}
-      noPostsLeft={noPostsLeft}
-      page={page}
-      header={() => (
-        <ProfileHeader
-          data={profileData}
-          loading={loadingProfile}
-          isFollowing={isFollowing}
-          setIsFollowing={setIsFollowing}
-        />
-      )}
-    />
+    <View style={styles.container}>
+      <PostList
+        data={data}
+        navigation={navigation}
+        refreshing={loading}
+        handleRefresh={handleRefresh}
+        handleEnd={handleEnd}
+        noPostsLeft={noPostsLeft}
+        page={page}
+        header={() => (
+          <ProfileHeader
+            data={profileData}
+            loading={loadingProfile}
+            isFollowing={isFollowing}
+            setIsFollowing={setIsFollowing}
+          />
+        )}
+      />
+    </View>
   );
 }
 

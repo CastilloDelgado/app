@@ -15,6 +15,7 @@ import { ProfileService } from "../services/ProfileService";
 import * as ImagePicker from "expo-image-picker";
 import axios from "../helpers/axiosConfig";
 import { SERVER_URL, STORAGE_SERVER_URL } from "../constants";
+import colors from "../settings/colors";
 
 export default function SettingsScreen() {
   const { user, logout } = useContext(AuthContext);
@@ -131,7 +132,7 @@ export default function SettingsScreen() {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: colors.appBackgroundColor }}>
       <View style={styles.centerContainer}>
         <View style={styles.imagePickerContainer}>
           {/* Background Image picker */}
@@ -206,6 +207,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 40,
+    backgroundColor: colors.appBackgroundColor,
   },
 
   image: {
@@ -225,6 +227,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textDecorationLine: "underline",
     textAlign: "center",
+    color: colors.textMessageColor,
   },
 
   imageContainer: {

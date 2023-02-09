@@ -5,6 +5,7 @@ import PeopleIcon from "./icons/PeopleIcon";
 import CommentIcon from "./icons/CommentIcon";
 import AssistIcon from "./icons/AssistIcon";
 import ReactionService from "../services/ReactionService";
+import colors from "../settings/colors";
 
 export default function PostEngagementInfo({ item }) {
   const [assist, setAssist] = useState(false);
@@ -29,18 +30,20 @@ export default function PostEngagementInfo({ item }) {
     <View style={styles.postEngagement}>
       <TouchableOpacity style={styles.flexRow}>
         <PeopleIcon />
-        <Text>{item.reaction_count || 0}</Text>
+        <Text style={styles.iconText}>{item.reaction_count || 0}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={[styles.flexRow, { marginLeft: 12 }]}>
         <CommentIcon />
-        <Text>{item.comments_count || 0}</Text>
+        <Text style={styles.iconText}>{item.comments_count || 0}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.flexRow, { marginLeft: 12 }]}
         onPress={!assist ? handleReaction : handleRemoveReaction}
       >
         <AssistIcon />
-        <Text>{`${!assist ? "¿" : "¡"}Asisitirás${!assist ? "?" : "!"}`}</Text>
+        <Text style={styles.iconText}>{`${!assist ? "¿" : "¡"}Asisitirás${
+          !assist ? "?" : "!"
+        }`}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -50,6 +53,10 @@ const styles = StyleSheet.create({
   flexRow: {
     flexDirection: "row",
     alignItems: "center",
+  },
+
+  iconText: {
+    color: colors.reactionTextColor,
   },
 
   postEngagement: {

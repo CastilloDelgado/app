@@ -7,19 +7,20 @@ import SearchScreen from "./screens/SearchScreen";
 import NewPost from "./screens/NewPost";
 import PostScreen from "./screens/PostScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import NotificationScreen from "./screens/NotificationsScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import SettingsScreen from "./screens/SettingsScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { AuthContext } from "./context/AuthProvider";
 import CustomActivityIndicator from "./components/CustomActivityIndicator";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import LoginScreen from "./screens/Auth/LoginScreen";
 import RegisterScreen from "./screens/Auth/RegisterScreen";
 import ChangePasswordScreen from "./screens/Auth/ChangePasswordScreen";
 import * as SecureStore from "expo-secure-store";
 import axios from "./helpers/axiosConfig";
+import colors from "./settings/colors";
+import headerLogo from "./assets/header-logo.png";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -30,6 +31,9 @@ const TabNavigator = () => (
     screenOptions={{
       headerShown: false,
       tabBarShowLabel: false,
+      tabBarActiveTintColor: colors.tabBarActiveIconColor,
+      tabBarActiveBackgroundColor: colors.tabBarBackgroundColor,
+      tabBarInactiveBackgroundColor: colors.tabBarBackgroundColor,
     }}
   >
     <Tab.Screen
@@ -50,22 +54,30 @@ const TabNavigator = () => (
         ),
       }}
     />
-    <Tab.Screen
-      name="Notifications"
-      component={NotificationScreen}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <Ionicons name="notifications" size={size} color={color} />
-        ),
-      }}
-    />
   </Tab.Navigator>
 );
 
 const AuthStackNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Login Screen" component={LoginScreen} />
-    <Stack.Screen name="Register Screen" component={RegisterScreen} />
+  <Stack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: colors.appBackgroundColor,
+      },
+      headerTitleStyle: {
+        color: colors.lightTextColor,
+      },
+    }}
+  >
+    <Stack.Screen
+      options={{ title: "Iniciar sesión" }}
+      name="Login Screen"
+      component={LoginScreen}
+    />
+    <Stack.Screen
+      options={{ title: "Registrate" }}
+      name="Register Screen"
+      component={RegisterScreen}
+    />
     <Stack.Screen
       name="Change Password Screen"
       component={ChangePasswordScreen}
@@ -78,6 +90,12 @@ const HomeStackNavigator = () => (
     screenOptions={{
       headerShown: true,
       headerBackBTitleVisible: false,
+      headerStyle: {
+        backgroundColor: colors.appBackgroundColor,
+      },
+      headerTitleStyle: {
+        color: colors.lightTextColor,
+      },
     }}
   >
     <Stack.Screen
@@ -132,14 +150,40 @@ export default function Root() {
   return (
     <>
       {user ? (
-        <NavigationContainer>
+        <NavigationContainer
+          options={{
+            Drawer,
+          }}
+        >
           <Drawer.Navigator
             screenOptions={{
               headerShown: true,
+              headerStyle: {
+                backgroundColor: colors.appBackgroundColor,
+              },
+              headerTitleStyle: {
+                color: colors.lightTextColor,
+              },
             }}
           >
-            <Drawer.Screen name="HomeStack" component={HomeStackNavigator} />
-            <Drawer.Screen name="Settings" component={SettingsScreen} />
+            <Drawer.Screen
+              name="HomeStack"
+              component={HomeStackNavigator}
+              // options={{ title: "Feed" }}
+              options={{
+                headerTitle: () => (
+                  <Image
+                    source={headerLogo}
+                    style={{ width: 70, height: 40 }}
+                  ></Image>
+                ),
+              }}
+            />
+            <Drawer.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{ title: "Configuración" }}
+            />
           </Drawer.Navigator>
         </NavigationContainer>
       ) : (

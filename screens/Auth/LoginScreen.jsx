@@ -1,9 +1,11 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import React, { useContext, useState } from "react";
 import CustomTextInput from "../../components/CustomTextInput";
 import CustomButton from "../../components/CustomButton";
 import { AuthContext } from "../../context/AuthProvider";
 import CustomTextButton from "../../components/CustomTextButton";
+import colors from "../../settings/colors";
+import loginLogo from "../../assets/main-logo.png";
 
 export default function LoginScreen({ navigation }) {
   const { login } = useContext(AuthContext);
@@ -14,6 +16,9 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.centerContainer}>
+      <View style={{ marginBottom: 20 }}>
+        <Image source={loginLogo} style={{ width: 200, height: 120 }}></Image>
+      </View>
       <View>
         <CustomTextInput
           title="Correo electrónico"
@@ -55,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: colors.appBackgroundColor,
   },
   buttonContainer: {
     marginTop: 16,

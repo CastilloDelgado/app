@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
 
   timeItem: {
-    color: colors.secondaryTextColor,
+    color: colors.profileUsertagColor,
     marginRight: 10,
   },
 
@@ -106,9 +106,10 @@ const styles = StyleSheet.create({
 
   postUsername: {
     fontWeight: "bold",
+    color: colors.postItemNameColor,
   },
   postUsertag: {
-    color: colors.secondaryTextColor,
+    color: colors.postItemUsertagColor,
   },
 
   postContentContainer: {
@@ -123,10 +124,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 6,
+    color: colors.postItemDescriptionColor,
   },
   postDescription: {
     textAlign: "justify",
     fontSize: 16,
+    color: colors.postItemDescriptionColor,
   },
 
   postEngagementContainer: {
