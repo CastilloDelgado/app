@@ -1,5 +1,7 @@
-export const SERVER_URL = "http://127.0.0.1:8000/api";
-export const STORAGE_SERVER_URL = "http://127.0.0.1:8000/storage";
+import { BASE_URL, STORAGE_URL } from "@env";
+
+export const SERVER_URL = BASE_URL;
+export const STORAGE_SERVER_URL = STORAGE_URL;
 
 export const emptyPostForm = {
   title: "",
